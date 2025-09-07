@@ -1,15 +1,15 @@
 5 Sep
 
-- [+] Settings file and .env
-- [+] Refactor auth and CRUD
-- [+] add fronend
-- [+] add static file serving
-- [+] push to git
+- [x] Settings file and .env
+- [x] Refactor auth and CRUD
+- [x] add fronend
+- [x] add static file serving
+- [x] push to git
 
 7 sep
 
-- [+] set up tailwind / headless ui / react-query / router
-- [+] set up the main books screen
+- [x] set up tailwind / headless ui / react-query / router
+- [x] set up the main books screen
 - [ ] figure out relation for book with reatings
 
 8 Sep
