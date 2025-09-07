@@ -10,6 +10,7 @@ from app.routers.users import router as users_router
 from app.routers.books import router as books_router
 from app.routers.ratings import router as ratings_router
 from app.routers.auth import router as auth_router
+from fastapi.middleware.cors import CORSMiddleware
 
 
 @asynccontextmanager
@@ -21,6 +22,15 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
+
+# add cors - TODO: add only for localhost
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # I need this to be a current working directory
 DIST_DIR = os.getcwd() + "/dist/"
