@@ -15,5 +15,12 @@
 8 Sep
 
 - [ ] add pagination and refactor book list (to smaller components)
-- [ ] add book form
-- [ ] add login system
+- [x] add book form
+- [x] add login system
+- [x] change app name and favicon
+
+9 Sep
+
+- [ ] add logout system and user preservation
+- [ ] fix modal layout
+- [ ] fix input and naming convention for ui components

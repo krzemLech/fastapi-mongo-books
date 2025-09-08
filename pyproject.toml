@@ -17,3 +17,6 @@ dependencies = [
 dev = [
     "ruff>=0.12.12",
 ]
+[project.scripts]
+dev = "dev:main"
+

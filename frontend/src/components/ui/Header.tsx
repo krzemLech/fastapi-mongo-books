@@ -4,8 +4,13 @@ import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { PlusIcon, BookOpenIcon } from "lucide-react";
 import { ModeToggle } from "./ModeToggle";
+import { modals, type modalType } from "@/config";
 
-export default function Header1() {
+type HeaderProps = {
+  setModalOpen: (modal: modalType) => void;
+};
+
+export default function Header1({ setModalOpen }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   // const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   // const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -66,11 +71,17 @@ export default function Header1() {
 
           <div className="hidden items-center space-x-4 lg:flex">
             <ModeToggle />
-            <a className="text-foreground font-medium transition-colors duration-200 hover:text-rose-500 cursor-pointer">
+            <button
+              className="text-foreground font-medium transition-colors duration-200 hover:text-rose-500 cursor-pointer"
+              onClick={() => setModalOpen(modals.login)}
+            >
               Sign In
-            </a>
+            </button>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <button className="inline-flex items-center space-x-2 rounded-full bg-gradient-to-r from-rose-500 to-rose-700 px-6 py-2.5 font-medium text-white transition-all duration-200 hover:shadow-lg cursor-pointer">
+              <button
+                className="inline-flex items-center space-x-2 rounded-full bg-gradient-to-r from-rose-500 to-rose-700 px-6 py-2.5 font-medium text-white transition-all duration-200 hover:shadow-lg cursor-pointer"
+                onClick={() => setModalOpen(modals.addBook)}
+              >
                 <span>Add a book</span>
                 <PlusIcon className="h-4 w-4 stroke-3 stroke-white" />
               </button>
