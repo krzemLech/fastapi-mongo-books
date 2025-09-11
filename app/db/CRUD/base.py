@@ -26,6 +26,7 @@ class CRUDService(Generic[T,]):
 
     async def create(self, data: dict[str, Any]) -> T:
         """Create a new document"""
+        print(data)
         return await self.model(**data).save()
 
     async def get_by_id(self, item_id: str) -> Optional[T]:

@@ -15,7 +15,10 @@ type RegisterParams = {
 export const auth = {
   login: async (params: LoginParams) => {
     const body = JSON.stringify(params);
-    return API.post("/api/v1/auth/login", { body }).then((res) => {
+    return API.post("/api/v1/auth/login", {
+      body,
+      headers: {},
+    }).then((res) => {
       setToken(res.token);
       return res;
     });
@@ -30,6 +33,12 @@ export const auth = {
   logout: async () => {
     return API.post("/api/v1/auth/logout", {}).then((res) => {
       deleteToken();
+      return res;
+    });
+  },
+
+  getUser: async () => {
+    return API.get("/api/v1/auth/me", {}).then((res) => {
       return res;
     });
   },

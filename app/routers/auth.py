@@ -23,15 +23,13 @@ session_service = SessionCRUD()
 @router.post("/register")
 async def register(user: UserCreate) -> UserResponse:
     user.password = AuthUtils.hash_password(user.password)
-    created_user = await user_service.create(user)
+    created_user = await user_service.create(user.model_dump())
     return created_user
 
 
 @router.post("/login")
 async def login(credentials: Login) -> Token:
-    print(credentials)
     user_from_db = await user_service.get_by_email(credentials.email)
-    print(user_from_db)
     if not user_from_db:
         raise HTTPException(status_code=404, detail="User not found")
     if not AuthUtils.verify_password(credentials.password, user_from_db.password):
@@ -49,7 +47,7 @@ async def login(credentials: Login) -> Token:
 
 @router.post("/logout")
 async def logout(
-    user: SessionUser = Depends(AuthUtils.check_user_session),
+    user: SessionUser = Depends(AuthUtils.session_depenedency),
 ) -> dict[str, str]:
     await session_service.delete_session(user.id)
     # TODO: delete the session cookie

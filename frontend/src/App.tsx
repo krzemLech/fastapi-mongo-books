@@ -1,40 +1,34 @@
-import { Header, UsersTable } from "./components/ui";
+import { Header, UsersTable } from "./components";
 import { ThemeProvider } from "./context/themeContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useState } from "react";
-import { modals, type modalType } from "./config";
+import { modals } from "./config";
 import { LoginModal } from "./components/modals/LoginModal";
 import { AddBookModal } from "./components/modals/AddBookModal";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Route, Routes, useSearchParams } from "react-router";
 
 const queryClient = new QueryClient();
 
 function App() {
-  const [modalOpen, setModalOpen] = useState<modalType | null>(null);
+  const [searchParams] = useSearchParams();
+  const modal = searchParams.get("modal");
 
-  const handleModalOpen = (modal: modalType | null) => {
-    setModalOpen(modal);
-  };
+  const openLoginModal = modal === modals.login;
+  const openAddBookModal = modal === modals.addBook;
 
   return (
     <div className="App h-screen">
       <ThemeProvider>
         <QueryClientProvider client={queryClient}>
-          {modalOpen === modals.login && (
-            <LoginModal
-              open={modalOpen === modals.login}
-              toggleModal={handleModalOpen}
-            />
-          )}
-          {modalOpen === modals.addBook && (
-            <AddBookModal
-              open={modalOpen === modals.addBook}
-              toggleModal={handleModalOpen}
-            />
-          )}
-          <Header setModalOpen={handleModalOpen} />
+          <Header />
           <main className="container mx-auto pt-28 max-w-7xl px-8">
-            <UsersTable />
+            <Routes>
+              <Route path="/" element={<UsersTable />} />
+            </Routes>
           </main>
+          <LoginModal open={openLoginModal} />
+          <AddBookModal open={openAddBookModal} />
+          <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
       </ThemeProvider>
     </div>

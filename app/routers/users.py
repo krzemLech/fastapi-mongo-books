@@ -16,7 +16,7 @@ user_service = UserCRUD(User)
 
 
 @router.get("/")
-async def get_users(user: SessionUser = Depends(AuthUtils.session_depenedency)) -> list[UserResponse]:
+async def get_users() -> list[UserResponse]:
     users = await user_service.get_all()
     return users
 

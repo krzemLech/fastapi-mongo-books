@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from beanie import PydanticObjectId
 from datetime import datetime
 
@@ -38,7 +38,7 @@ class UserResponse(BaseModel):
 
 class Login(BaseModel):
     email: str
-    password: str
+    password: str = Field(..., min_length=5)
 
 
 class Token(BaseModel):

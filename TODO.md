@@ -21,6 +21,25 @@
 
 9 Sep
 
-- [ ] add logout system and user preservation
-- [ ] fix modal layout
-- [ ] fix input and naming convention for ui components
+- [x] add logout system and user preservation
+
+11 Sep
+
+- [x] add react router and make modals depand on query params
+- [x] move query keys to config
+- [x] fix modal layout
+- [x] fix input and naming convention for ui components
+- [x] fix inbound modal animation
+
+12 Sep
+
+- [ ] add delete and edit book functionalities
+- [ ] add pagination
+
+13 Sep (rating)
+
+- [ ] add rating view in books table
+- [ ] add rating avg for each book (BE)
+- [ ] add rating button in the actions
+- [ ] add rating modal (if button will not sufice)
+- [ ] add rated books array in the user model (for checking if user can rate a book)

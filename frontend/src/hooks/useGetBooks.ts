@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { bookApi } from "../api/books";
+import { queryKeys } from "@/config";
 
 type Book = {
   id: string;
@@ -13,7 +14,7 @@ type Book = {
 
 export const useGetBooks = () => {
   return useQuery<Book[]>({
-    queryKey: ["books"],
+    queryKey: [queryKeys.books],
     queryFn: () => bookApi.getBooks(),
   });
 };
