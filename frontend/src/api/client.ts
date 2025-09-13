@@ -51,7 +51,7 @@ const API = {
     apiClient(url, { ...options, method: "GET" }),
   post: (url: string, options: RequestInit) =>
     apiClient(url, { ...options, method: "POST" }),
-  patch: (url: string, options: RequestInit) =>
+  put: (url: string, options: RequestInit) =>
     apiClient(url, { ...options, method: "PUT" }),
   delete: (url: string, options: RequestInit) =>
     apiClient(url, { ...options, method: "DELETE" }),

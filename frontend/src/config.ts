@@ -3,6 +3,7 @@ export const modals = {
   login: "login",
   register: "register",
   rateBook: "rateBook",
+  editBook: "editBook",
 } as const;
 
 export type modalType = (typeof modals)[keyof typeof modals];

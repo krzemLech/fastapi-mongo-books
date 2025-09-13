@@ -33,8 +33,8 @@
 
 12 Sep
 
-- [ ] add delete and edit book functionalities
-- [ ] add pagination
+- [x] add delete and edit book functionalities
+- [x] add pagination
 
 13 Sep (rating)
 

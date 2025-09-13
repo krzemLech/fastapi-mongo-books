@@ -1,5 +1,6 @@
 import { useId } from "react";
-import { useAddBook } from "@/hooks";
+
+import { useUpdateBook, useGetSingleBook } from "@/hooks";
 import { useState } from "react";
 import { BookIcon } from "../icons/BookIcon";
 import { useNavigate } from "react-router";
@@ -7,13 +8,15 @@ import { BaseModal } from "./BaseModal";
 import { BookForm } from "../forms/BookForm";
 import { extractBookFormData } from "../forms/bookFormHelpers";
 
-type AddBookModalProps = {
+type UpdateBookModalProps = {
   open: boolean;
+  bookId?: string | null;
 };
 
-export function AddBookModal({ open }: AddBookModalProps) {
+export function UpdateBookModal({ open, bookId }: UpdateBookModalProps) {
   const localId = useId();
-  const { mutateAsync: addBook } = useAddBook();
+  const { mutateAsync: updateBook } = useUpdateBook();
+  const { data: book } = useGetSingleBook(bookId as string);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
@@ -21,17 +24,20 @@ export function AddBookModal({ open }: AddBookModalProps) {
     navigate("/");
   };
 
-  const handleAddBook = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleUpdateBook = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { title, author, description, pages } = extractBookFormData(
       e.target as HTMLFormElement
     );
-    await addBook({ title, author, description, pages })
+    await updateBook({
+      id: bookId as string,
+      book: { title, author, description, pages },
+    })
       .then(() => {
         navigate("/");
         closeModal();
       })
-      .catch((error) => {
+      .catch((error: Error) => {
         setError(error.message);
       });
   };
@@ -43,12 +49,17 @@ export function AddBookModal({ open }: AddBookModalProps) {
   return (
     <BaseModal
       open={open}
-      title="Add a book"
+      title="Update a book"
       error={error}
       icon={<BookIcon className="h-7 w-7 text-rose-500 font-bold" />}
       onClose={() => closeModal()}
     >
-      <BookForm btnText="Add book" localId={localId} onSubmit={handleAddBook} />
+      <BookForm
+        btnText="Update book"
+        localId={localId}
+        onSubmit={handleUpdateBook}
+        data={book}
+      />
     </BaseModal>
   );
 }

@@ -38,7 +38,7 @@ async def create_book(book: BookCreate) -> BookResponse:
     return created_book
 
 
-@router.patch("/{book_id}")
+@router.put("/{book_id}")
 async def update_book(book_id: str, book: BookUpdate) -> BookResponse:
     updated_book = await book_service.update(book_id, book.model_dump())
     if not updated_book:
