@@ -1,15 +1,12 @@
 import API from "./client";
-
-export type Book = {
-  title: string;
-  author: string;
-  description: string;
-  pages: number;
-};
+import type { Book, PaginationParams } from "@/types";
 
 export const bookApi = {
-  getBooks: async () => {
-    return API.get("/api/v1/books/", {});
+  getBooks: async (pagination: PaginationParams) => {
+    return API.get(
+      `/api/v1/books/?page=${pagination.page}&per_page=${pagination.perPage}`,
+      {}
+    );
   },
   getBook: async (id: string) => {
     return API.get(`/api/v1/books/${id}`, {});

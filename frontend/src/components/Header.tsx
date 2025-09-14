@@ -11,9 +11,6 @@ import { Link } from "react-router";
 export default function Header1() {
   const [isScrolled, setIsScrolled] = useState(false);
   const { data: user } = useUser();
-  // const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  // const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const [theme] = useState("dark");
   const { logout } = useLogin();
 
   useEffect(() => {
@@ -25,12 +22,11 @@ export default function Header1() {
   }, []);
 
   const headerVariants = {
-    initial: { y: -100, opacity: 0 },
+    initial: { y: 0, opacity: 1 },
     animate: { y: 0, opacity: 1 },
     scrolled: {
       backdropFilter: "blur(20px)",
-      backgroundColor:
-        theme === "dark" ? "rgba(0, 0, 0, 0.8)" : "rgba(255, 255, 255, 0.8)",
+      backgroundColor: "transparent",
       boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
     },
   };
@@ -40,16 +36,12 @@ export default function Header1() {
       className="fixed top-0 right-0 left-0 z-50 transition-all duration-300"
       variants={headerVariants}
       initial="initial"
-      animate={isScrolled ? "scrolled" : "animate"}
+      animate={isScrolled ? "scrolled" : "initial"}
       transition={{ duration: 0.3, ease: "easeInOut" }}
       style={{
-        backdropFilter: isScrolled ? "blur(20px)" : "none",
-        backgroundColor: isScrolled
-          ? theme === "dark"
-            ? "rgba(0, 0, 0, 0.8)"
-            : "rgba(255, 255, 255, 0.8)"
-          : "transparent",
-        boxShadow: isScrolled ? "0 8px 32px rgba(0, 0, 0, 0.1)" : "none",
+        backdropFilter: "blur(20px)",
+        backgroundColor: "transparent",
+        boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
       }}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

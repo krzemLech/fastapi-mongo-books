@@ -34,6 +34,8 @@
 12 Sep
 
 - [x] add delete and edit book functionalities
+
+13 Sep
 - [x] add pagination
 
 13 Sep (rating)

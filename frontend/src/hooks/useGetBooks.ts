@@ -1,20 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 import { bookApi } from "../api/books";
 import { queryKeys } from "@/config";
+import type { Book, PaginationParams } from "@/types";
 
-type Book = {
-  id: string;
-  title: string;
-  author: string;
-  description: string;
-  pages: number;
-  created_at: string;
-  updated_at: string;
+type BooksListResponse = {
+  total: number;
+  page: number;
+  size: number;
+  items: Book[];
 };
 
-export const useGetBooks = () => {
-  return useQuery<Book[]>({
-    queryKey: [queryKeys.books],
-    queryFn: () => bookApi.getBooks(),
+export const useGetBooks = (pagination: PaginationParams) => {
+  return useQuery<BooksListResponse>({
+    queryKey: [queryKeys.books, pagination.page, pagination.perPage],
+    queryFn: () => bookApi.getBooks(pagination),
   });
 };

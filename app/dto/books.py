@@ -25,3 +25,9 @@ class BookResponse(BaseModel):
     pages: int
     created_at: datetime
     updated_at: datetime
+
+class BooksListResponse(BaseModel):
+    total: int
+    page: int
+    size: int
+    items: list[BookResponse]

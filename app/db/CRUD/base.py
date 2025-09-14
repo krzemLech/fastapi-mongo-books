@@ -51,3 +51,13 @@ class CRUDService(Generic[T,]):
             await item.delete()
             return True
         return False
+    
+    async def count(self, filters: dict[str, str] = {}) -> int:
+        """Count documents with optional filtering by author and title"""
+        query = {}
+
+        for key, value in filters.items():
+            if value:
+                query[key] = {"$regex": f"^{value}", "$options": "i"}
+
+        return await self.model.find(query).count()

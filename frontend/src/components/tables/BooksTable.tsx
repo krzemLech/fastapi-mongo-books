@@ -1,15 +1,21 @@
 "use client";
 
-import { memo } from "react";
+import { memo, useState } from "react";
 import { motion } from "framer-motion";
 import { Book } from "lucide-react";
 
 import { Calendar, MessageCircle, UserCircle2 } from "lucide-react";
 import { useGetBooks } from "@/hooks/useGetBooks";
-import { ActionButton } from "./buttons/ActionButton";
+import { ActionButton } from "../buttons/ActionButton";
+import { BasicPagination } from "./Pagination";
+import { PageSizeSelect } from "./PageSizeSelect";
 
-export const UsersTable = memo(() => {
-  const { data: books = [] } = useGetBooks();
+const noPaginationResponse = { total: 0, page: 0, size: 0, items: [] };
+
+export const BooksTable = memo(() => {
+  const [pagination, setPagination] = useState({ page: 1, perPage: 5 });
+  const { data: { total, page, size, items } = noPaginationResponse } =
+    useGetBooks(pagination);
 
   return (
     <div className="border-border bg-card/40 rounded-xl border p-3 sm:p-6">
@@ -26,7 +32,7 @@ export const UsersTable = memo(() => {
       </div>
 
       <div className="space-y-2">
-        {books.map((book, index) => (
+        {items?.map((book, index) => (
           <div key={book.id}>
             <motion.div
               key={book.id}
@@ -55,7 +61,7 @@ export const UsersTable = memo(() => {
                     </div>
                     <div className="flex items-center gap-1">
                       <MessageCircle className="h-3 w-3 text-neutral-300" />
-                      <span>{book.description}</span>
+                      <span>{book.description.slice(0, 100)}...</span>
                     </div>
                   </div>
                 </div>
@@ -72,8 +78,26 @@ export const UsersTable = memo(() => {
           </div>
         ))}
       </div>
+      {total && (
+        <div className="mt-4 flex justify-end">
+          <BasicPagination
+            total={total}
+            page={page}
+            size={size}
+            onPageChange={(newPage) => {
+              setPagination((prev) => ({ ...prev, page: newPage }));
+            }}
+          />
+          <PageSizeSelect
+            value={size}
+            onChange={(newSize) => {
+              setPagination((prev) => ({ ...prev, perPage: newSize }));
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 });
 
-UsersTable.displayName = "UsersTable";
+BooksTable.displayName = "BooksTable";

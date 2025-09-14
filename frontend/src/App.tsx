@@ -1,4 +1,4 @@
-import { Header, UsersTable } from "./components";
+import { Header, BooksTable } from "./components";
 import { ThemeProvider } from "./context/themeContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { modals } from "./config";
@@ -26,7 +26,7 @@ function App() {
           <Header />
           <main className="container mx-auto pt-28 max-w-7xl px-8">
             <Routes>
-              <Route path="/" element={<UsersTable />} />
+              <Route path="/" element={<BooksTable />} />
             </Routes>
           </main>
           <LoginModal open={openLoginModal} />
