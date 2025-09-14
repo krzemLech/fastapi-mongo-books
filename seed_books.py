@@ -3,11 +3,10 @@ import asyncio
 from app.db.models.book import Book
 
 async def seed_books():
-    # Connect to MongoDB
-    client = await connect_db()
-    
-    # List of 50 real books with their details
-    books = [
+    await connect_db()
+
+    # 50 sample books
+    sample_books = [
         {
             "title": "1984",
             "author": "George Orwell",
@@ -316,8 +315,7 @@ async def seed_books():
         }
     ]
     
-    # Insert books into database
-    for book_data in books:
+    for book_data in sample_books:
         await Book(**book_data).save()
     
     print("Successfully added 50 books to the database!")
