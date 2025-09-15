@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { bookApi } from "../api/books";
-import { queryKeys } from "@/config";
-import type { Book, PaginationParams } from "@/types";
+import { DEBOUNCE_TIME, queryKeys } from "@/config";
+import type { Book, PaginationParams, Filters } from "@/types";
+import { useDebounce } from "./useDebounce";
 
 type BooksListResponse = {
   total: number;
@@ -10,9 +11,16 @@ type BooksListResponse = {
   items: Book[];
 };
 
-export const useGetBooks = (pagination: PaginationParams) => {
+export const useGetBooks = (pagination: PaginationParams, filters: Filters) => {
+  const debouncedFilters = useDebounce(filters, DEBOUNCE_TIME);
   return useQuery<BooksListResponse>({
-    queryKey: [queryKeys.books, pagination.page, pagination.perPage],
-    queryFn: () => bookApi.getBooks(pagination),
+    queryKey: [
+      queryKeys.books,
+      pagination.page,
+      pagination.perPage,
+      debouncedFilters.author,
+      debouncedFilters.title,
+    ],
+    queryFn: () => bookApi.getBooks(pagination, debouncedFilters),
   });
 };

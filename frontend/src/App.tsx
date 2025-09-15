@@ -24,7 +24,7 @@ function App() {
       <ThemeProvider>
         <QueryClientProvider client={queryClient}>
           <Header />
-          <main className="container mx-auto pt-28 max-w-7xl px-8">
+          <main className="container mx-auto pt-28 max-w-7xl px-8 pb-8">
             <Routes>
               <Route path="/" element={<BooksTable />} />
             </Routes>

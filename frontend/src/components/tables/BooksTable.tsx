@@ -2,20 +2,23 @@
 
 import { memo, useState } from "react";
 import { motion } from "framer-motion";
-import { Book } from "lucide-react";
 
 import { Calendar, MessageCircle, UserCircle2 } from "lucide-react";
 import { useGetBooks } from "@/hooks/useGetBooks";
 import { ActionButton } from "../buttons/ActionButton";
 import { BasicPagination } from "./Pagination";
 import { PageSizeSelect } from "./PageSizeSelect";
+import { SearchBar } from "./SearchBar";
+import type { Filters } from "@/types";
+import { PAGE_SIZES } from "@/config";
 
 const noPaginationResponse = { total: 0, page: 0, size: 0, items: [] };
 
 export const BooksTable = memo(() => {
   const [pagination, setPagination] = useState({ page: 1, perPage: 5 });
+  const [filters, setFilters] = useState<Filters>({ author: "", title: "" });
   const { data: { total, page, size, items } = noPaginationResponse } =
-    useGetBooks(pagination);
+    useGetBooks(pagination, filters);
 
   return (
     <div className="border-border bg-card/40 rounded-xl border p-3 sm:p-6">
@@ -27,7 +30,7 @@ export const BooksTable = memo(() => {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Book />
+          <SearchBar filters={filters} setFilters={setFilters} />
         </div>
       </div>
 
@@ -78,7 +81,7 @@ export const BooksTable = memo(() => {
           </div>
         ))}
       </div>
-      {total && (
+      {total > PAGE_SIZES[0] && (
         <div className="mt-4 flex justify-end">
           <BasicPagination
             total={total}

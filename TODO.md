@@ -38,7 +38,10 @@
 13 Sep
 - [x] add pagination
 
-13 Sep (rating)
+15 Sep
+- [x] add filtering and debounce
+
+Queue
 
 - [ ] add rating view in books table
 - [ ] add rating avg for each book (BE)

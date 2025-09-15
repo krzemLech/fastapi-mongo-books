@@ -12,3 +12,8 @@ export type Book = {
   created_at: string;
   updated_at: string;
 };
+
+export type Filters = {
+  author: string;
+  title: string;
+};
