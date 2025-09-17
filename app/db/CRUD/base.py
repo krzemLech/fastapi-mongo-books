@@ -61,3 +61,7 @@ class CRUDService(Generic[T,]):
                 query[key] = {"$regex": f"^{value}", "$options": "i"}
 
         return await self.model.find(query).count()
+
+    async def aggregate(self, pipeline: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        """Aggregate documents with optional filtering by author and title"""
+        return await self.model.aggregate(pipeline).to_list()

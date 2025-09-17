@@ -36,15 +36,22 @@
 - [x] add delete and edit book functionalities
 
 13 Sep
+
 - [x] add pagination
 
 15 Sep
+
 - [x] add filtering and debounce
+
+17 Sep
+
+- [x] move to page 0 when filters are applied, sync it with debounce
+- [x] add rating avg for each book (BE)
+- [x] add rating button in the actions
 
 Queue
 
+- [ ] fix pagination (regression)
 - [ ] add rating view in books table
-- [ ] add rating avg for each book (BE)
-- [ ] add rating button in the actions
 - [ ] add rating modal (if button will not sufice)
 - [ ] add rated books array in the user model (for checking if user can rate a book)

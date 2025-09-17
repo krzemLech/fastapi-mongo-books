@@ -16,7 +16,7 @@ type UpdateBookModalProps = {
 export function UpdateBookModal({ open, bookId }: UpdateBookModalProps) {
   const localId = useId();
   const { mutateAsync: updateBook } = useUpdateBook();
-  const { data: book } = useGetSingleBook(bookId as string);
+  const { data: book } = useGetSingleBook(bookId as string, open);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 

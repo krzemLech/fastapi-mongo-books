@@ -4,7 +4,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MoreHorizontal, Edit, Trash } from "lucide-react";
+import { MoreHorizontal, Edit, Trash, StarIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import { useDeleteBook } from "@/hooks";
 import { modals } from "@/config";
@@ -30,6 +30,13 @@ export function ActionButton({ id }: { id: string }) {
         <DropdownMenuItem onClick={() => deleteBook(id)}>
           <Trash className="text-red-500" />
           Delete
+        </DropdownMenuItem>
+        {/* TODO: add conditional rendering for logged in user */}
+        <DropdownMenuItem asChild>
+          <Link to={`?modal=${modals.rateBook}&id=${id}`}>
+            <StarIcon className="text-yellow-500" />
+            Rate
+          </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -3,7 +3,13 @@
 import { memo, useState } from "react";
 import { motion } from "framer-motion";
 
-import { Calendar, MessageCircle, UserCircle2 } from "lucide-react";
+import {
+  Calendar,
+  MessageCircle,
+  UserCircle2,
+  StarIcon,
+  StarOffIcon,
+} from "lucide-react";
 import { useGetBooks } from "@/hooks/useGetBooks";
 import { ActionButton } from "../buttons/ActionButton";
 import { BasicPagination } from "./Pagination";
@@ -71,6 +77,14 @@ export const BooksTable = memo(() => {
               </div>
 
               <div className="ml-auto flex items-center gap-3">
+                <div className="text-muted-foreground flex items-center gap-1 text-xs mr-6">
+                  {book.average_rating ? (
+                    <StarIcon className="h-3 w-3" />
+                  ) : (
+                    <StarOffIcon className="h-3 w-3" />
+                  )}
+                  <span>{book.average_rating || 0}</span>
+                </div>
                 <div className="text-muted-foreground flex items-center gap-1 text-xs">
                   <Calendar className="h-3 w-3" />
                   <span>{new Date(book.created_at).toLocaleDateString()}</span>

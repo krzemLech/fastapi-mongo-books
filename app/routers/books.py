@@ -4,6 +4,8 @@ from app.lib.url_utils import book_parameters
 from app.db.models.book import Book
 from app.dto.books import BookCreate, BookUpdate, BookResponse, BooksListResponse
 from app.db.CRUD.base import CRUDService
+import math
+from app.lib.db_utils import generate_pipeline, pipeline_books_with_ratings
 
 router = APIRouter(tags=["books"])
 
@@ -14,13 +16,24 @@ book_service = CRUDService[Book](Book)
 async def get_books(
     params: Annotated[dict[str, str], Depends(book_parameters)],
 ) -> dict[str, int | list[Book]]:
-    skip = (int(params["page"]) - 1) * int(params["per_page"])
-    limit = int(params["per_page"])
-    pagination = {"page": params["page"], "per_page": params["per_page"]}
+    page = int(params["page"])
+    per_page = int(params["per_page"])
     filters = {"author": params["author"], "title": params["title"]}
+
+    # calculate maximum page for given books count
     book_count = await book_service.count(filters=filters)
-    books = await book_service.get_all(skip=skip, limit=limit, filters=filters)
-    return { "total": book_count, "page": int(pagination["page"]), "size": int(pagination["per_page"]), "items": books }
+    max_page = math.ceil(book_count / per_page)
+
+    if book_count == 0:
+        return { "total": book_count, "page": page, "size": per_page, "items": [] }
+ 
+    checked_page = page if page <= max_page else max_page
+
+    skip = (checked_page - 1) * per_page
+    limit = per_page
+
+    books = await book_service.aggregate(generate_pipeline(pipeline=pipeline_books_with_ratings, pagination={"skip": skip, "limit": limit}, filters=filters))
+    return { "total": book_count, "page": page, "size": per_page, "items": books }
 
 
 @router.get("/{book_id}", response_model=BookResponse)

@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from beanie import PydanticObjectId
 from datetime import datetime
+from typing import Optional
 
 
 class BookCreate(BaseModel):
@@ -26,8 +27,12 @@ class BookResponse(BaseModel):
     created_at: datetime
     updated_at: datetime
 
+class BookWithRatings(BookResponse):
+    average_rating: float | None
+    ratings_count: int | None
+
 class BooksListResponse(BaseModel):
     total: int
     page: int
     size: int
-    items: list[BookResponse]
+    items: list[BookWithRatings]

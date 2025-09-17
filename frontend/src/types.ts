@@ -11,6 +11,8 @@ export type Book = {
   pages: number;
   created_at: string;
   updated_at: string;
+  average_rating?: number;
+  ratings_count?: number;
 };
 
 export type Filters = {
