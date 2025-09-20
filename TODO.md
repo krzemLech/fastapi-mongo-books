@@ -49,9 +49,19 @@
 - [x] add rating avg for each book (BE)
 - [x] add rating button in the actions
 
+18 Sep
+
+- [x] add rating modal (if button will not sufice)
+
+20 Sep
+
+- [x] fix pagination (regression)
+- [x] add rating error handling and blockade for second rating for same user / same book
+- [x] turn off rating btn for guest (not logged-in)
+
 Queue
 
-- [ ] fix pagination (regression)
-- [ ] add rating view in books table
-- [ ] add rating modal (if button will not sufice)
-- [ ] add rated books array in the user model (for checking if user can rate a book)
+- [ ] add register modal and user registration
+- [ ] add two fields to user model: role and is_active (default to false for registration)
+- [ ] add user management dashboard (table and edit modal)
+- [ ] add user type and display constraints (FE)

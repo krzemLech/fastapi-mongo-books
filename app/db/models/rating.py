@@ -1,5 +1,6 @@
 from app.db.models.base import Base
 from beanie import PydanticObjectId
+from pymongo import IndexModel
 
 
 class Rating(Base):
@@ -9,3 +10,4 @@ class Rating(Base):
 
     class Settings:
         name = "ratings"
+        indexes = [IndexModel(["book_id", "user_id"], unique=True)]

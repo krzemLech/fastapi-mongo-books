@@ -19,3 +19,9 @@ export type Filters = {
   author: string;
   title: string;
 };
+
+export type RatingPayload = {
+  bookId: string;
+  userId: string;
+  rating: number;
+};

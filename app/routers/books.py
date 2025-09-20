@@ -33,6 +33,7 @@ async def get_books(
     limit = per_page
 
     books = await book_service.aggregate(generate_pipeline(pipeline=pipeline_books_with_ratings, pagination={"skip": skip, "limit": limit}, filters=filters))
+
     return { "total": book_count, "page": page, "size": per_page, "items": books }
 
 

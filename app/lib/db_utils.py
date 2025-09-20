@@ -32,9 +32,12 @@ pipeline_books_with_ratings = [
     ]
 
 def generate_pipeline(*, pipeline: list[dict[str, Any]], pagination: dict[str, Any], filters: dict[str, str] = {}) -> list[dict[str, Any]]:
-    pipeline.append({"$skip": pagination["skip"]})
-    pipeline.append({"$limit": pagination["limit"]})
+    aggregations = []
     for key in filters.keys():
       if filters[key] is not None:
-        pipeline.append({"$match": {key: {"$regex": f"^{filters[key]}", "$options": "i"}}})
-    return pipeline
+        aggregations.append({"$match": {key: {"$regex": f"^{filters[key]}", "$options": "i"}}})
+    aggregations.append({"$skip": pagination["skip"]})
+    aggregations.append({"$limit": pagination["limit"]})
+    aggregations.extend(pipeline)
+
+    return aggregations

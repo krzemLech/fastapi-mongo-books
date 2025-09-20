@@ -4,10 +4,11 @@ import { getToken } from "../api/client";
 import { queryKeys, USER_CACHE_TIME } from "@/config";
 
 export const useUser = () => {
-  return useQuery({
+  const { data } = useQuery({
     queryKey: [queryKeys.user],
     queryFn: auth.getUser,
     enabled: !!getToken(),
     staleTime: USER_CACHE_TIME,
   });
+  return { user: data };
 };

@@ -19,10 +19,16 @@ async def get_rating(book_id: str) -> RatingResponse:
 
 @router.post("/")
 async def create_rating(
-    rating: RatingCreate, user: SessionUser = Depends(AuthUtils.check_user_session)
+    rating: RatingCreate, user: SessionUser = Depends(AuthUtils.session_depenedency)
 ) -> dict[str, str]:
     rating.user_id = user.id
-    created_rating = await rating_service.create_rating(rating.model_dump())
+    if 0 <= rating.rating <= 5:
+        raise HTTPException(status_code=400, detail="Rating must be between 1 and 5")
+    try:
+        created_rating = await rating_service.create_rating(rating.model_dump())
+    except Exception as e:
+        print(e)
+        raise HTTPException(status_code=400, detail="Rating already exists")
     return {
         "message": f"Rating {created_rating.rating} created for book {created_rating.book_id}"
     }

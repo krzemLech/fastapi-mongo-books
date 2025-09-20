@@ -89,7 +89,7 @@ export const BooksTable = memo(() => {
                   <Calendar className="h-3 w-3" />
                   <span>{new Date(book.created_at).toLocaleDateString()}</span>
                 </div>
-                <ActionButton id={book.id} />
+                <ActionButton id={book.id} title={book.title} />
               </div>
             </motion.div>
           </div>

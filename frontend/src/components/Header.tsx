@@ -2,15 +2,16 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
-import { PlusIcon, BookOpenIcon } from "lucide-react";
+import { BookOpenIcon } from "lucide-react";
 import { ModeToggle } from "./ModeToggle";
 import { modals } from "@/config";
 import { useLogin, useUser } from "@/hooks";
 import { Link } from "react-router";
+import { AddButton } from "./buttons/AddButton";
 
 export default function Header1() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const { data: user } = useUser();
+  const { user } = useUser();
   const { logout } = useLogin();
 
   useEffect(() => {
@@ -80,15 +81,8 @@ export default function Header1() {
                 Sign In
               </Link>
             )}
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link
-                className="inline-flex items-center space-x-2 rounded-lg bg-gradient-to-r from-rose-500 to-rose-700 px-4 py-1.5 text-white transition-all duration-200 hover:shadow-lg cursor-pointer"
-                to={`/?modal=${user ? modals.addBook : modals.login}`}
-              >
-                <span>Add a book</span>
-                <PlusIcon className="h-4 w-4 stroke-2 stroke-white" />
-              </Link>
-            </motion.div>
+            <AddButton user={!!user} variant="book" />
+            {user.role === "admin" && <AddButton user={true} variant="user" />}
           </div>
         </div>
       </div>
