@@ -8,6 +8,8 @@ class SessionUser(BaseModel):
     id: PydanticObjectId
     name: str
     email: str
+    role: str
+    active: bool
 
 
 class Session(Base):

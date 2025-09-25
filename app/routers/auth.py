@@ -1,3 +1,4 @@
+from typing_extensions import Literal
 from fastapi import APIRouter, HTTPException, Depends
 from app.db.models.user import User
 from app.db.models.sessions import SessionUser
@@ -20,15 +21,26 @@ user_service = UserCRUD(User)
 session_service = SessionCRUD()
 
 
-@router.post("/register")
-async def register(user: UserCreate) -> UserResponse:
+@router.post("/register", response_model=UserResponse)
+async def register(user: UserCreate) -> User:
+    #  Guards
+    user_counter = await user_service.count()
+    if user_counter > 10:
+        raise HTTPException(status_code=400, detail="User limit reached")
+    existing_user = await user_service.get_by_email(user.email)
+    if existing_user:
+        raise HTTPException(status_code=400, detail="Email already registered")
+    
+    #  Create user
     user.password = AuthUtils.hash_password(user.password)
+    user.role = "user"
+    user.active = True
     created_user = await user_service.create(user.model_dump())
     return created_user
 
 
 @router.post("/login")
-async def login(credentials: Login) -> Token:
+async def login(credentials: Login) -> dict[Literal['token', 'user_name'], str]:
     user_from_db = await user_service.get_by_email(credentials.email)
     if not user_from_db:
         raise HTTPException(status_code=404, detail="User not found")
@@ -36,19 +48,20 @@ async def login(credentials: Login) -> Token:
         raise HTTPException(status_code=401, detail="Invalid credentials")
     session_user = SessionUser(
         id=user_from_db.id, name=user_from_db.name, email=user_from_db.email
+        , role=user_from_db.role, active=user_from_db.active
     )
     token = AuthUtils.generate_token()
     session = await session_service.create_session(token=token, session=session_user)
     if not session:
         raise HTTPException(status_code=500, detail="Failed to create session")
     # TODO: set the session cookie
-    return {"token": token}
+    return {"token": token, "user_name": user_from_db.name}
 
 
 @router.post("/logout")
 async def logout(
     user: SessionUser = Depends(AuthUtils.session_depenedency),
-) -> dict[str, str]:
+) -> dict[Literal['message'], Literal['Logged out']]:
     await session_service.delete_session(user.id)
     # TODO: delete the session cookie
     return {"message": "Logged out"}

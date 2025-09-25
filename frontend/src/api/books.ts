@@ -1,9 +1,13 @@
 import API from "./client";
 import type { Book, PaginationParams } from "@/types";
-import type { Filters } from "@/types";
+
+type BookFilters = {
+  author?: string;
+  title?: string;
+};
 
 export const bookApi = {
-  getBooks: async (pagination: PaginationParams, filters: Filters) => {
+  getBooks: async (pagination: PaginationParams, filters: BookFilters) => {
     let url = `/api/v1/books/?page=${pagination.page}&per_page=${pagination.perPage}`;
     if (filters.author) url += `&author=${filters.author}`;
     if (filters.title) url += `&title=${filters.title}`;

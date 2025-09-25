@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 
 import {
@@ -15,14 +15,17 @@ import { ActionButton } from "../buttons/ActionButton";
 import { BasicPagination } from "./Pagination";
 import { PageSizeSelect } from "./PageSizeSelect";
 import { SearchBar } from "./SearchBar";
-import type { Filters } from "@/types";
+import type { BookFilters } from "@/types";
 import { PAGE_SIZES } from "@/config";
 
 const noPaginationResponse = { total: 0, page: 0, size: 0, items: [] };
 
-export const BooksTable = memo(() => {
+export const BooksTable = () => {
   const [pagination, setPagination] = useState({ page: 1, perPage: 5 });
-  const [filters, setFilters] = useState<Filters>({ author: "", title: "" });
+  const [filters, setFilters] = useState<BookFilters>({
+    author: "",
+    title: "",
+  });
   const { data: { total, page, size, items } = noPaginationResponse } =
     useGetBooks(pagination, filters);
 
@@ -36,7 +39,11 @@ export const BooksTable = memo(() => {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <SearchBar filters={filters} setFilters={setFilters} />
+          <SearchBar
+            filters={filters}
+            setFilters={setFilters}
+            collection="books"
+          />
         </div>
       </div>
 
@@ -89,7 +96,7 @@ export const BooksTable = memo(() => {
                   <Calendar className="h-3 w-3" />
                   <span>{new Date(book.created_at).toLocaleDateString()}</span>
                 </div>
-                <ActionButton id={book.id} title={book.title} />
+                <ActionButton id={book.id} title={book.title} adding="book" />
               </div>
             </motion.div>
           </div>
@@ -115,6 +122,6 @@ export const BooksTable = memo(() => {
       )}
     </div>
   );
-});
+};
 
 BooksTable.displayName = "BooksTable";

@@ -5,6 +5,7 @@ export const modals = {
   rateBook: "rateBook",
   editBook: "editBook",
   rating: "rating",
+  addUser: "addUser",
 } as const;
 
 export type modalType = (typeof modals)[keyof typeof modals];
@@ -12,6 +13,7 @@ export type modalType = (typeof modals)[keyof typeof modals];
 export const queryKeys = {
   books: "books",
   user: "user",
+  users: "users",
 } as const;
 
 export type queryKeyType = (typeof queryKeys)[keyof typeof queryKeys];

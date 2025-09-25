@@ -8,6 +8,8 @@ class UserCreate(BaseModel):
     age: int
     email: str
     password: str
+    role: str = "user"
+    active: bool = False
 
     class Config:
         json_schema_extra = {
@@ -16,6 +18,8 @@ class UserCreate(BaseModel):
                 "age": 30,
                 "email": "john.doe@example.com",
                 "password": "password",
+                "role": "user",
+                "active": True
             }
         }
 
@@ -25,6 +29,8 @@ class UserUpdate(BaseModel):
     age: int | None = None
     email: str | None = None
     password: str | None = None
+    role: str | None = None
+    active: bool | None = None
 
 
 class UserResponse(BaseModel):
@@ -32,6 +38,8 @@ class UserResponse(BaseModel):
     name: str
     age: int
     email: str
+    active: bool
+    role: str
     created_at: datetime
     updated_at: datetime
 

@@ -59,9 +59,28 @@
 - [x] add rating error handling and blockade for second rating for same user / same book
 - [x] turn off rating btn for guest (not logged-in)
 
+21 Sep
+- [x] add two fields to user model: role and is_active (default to false for registration)
+- [x] add user management dashboard (table and edit modal)
+
+24 Sep
+
+- [x] add register modal and user registration
+- [x] add user type and display constraints (FE)
+- [x] fix filters (make it more generic, maybe use Object.keys(...))
+
+25 Sep
+
+- [x] add users filtering
+- [x] add notifications
+
 Queue
 
-- [ ] add register modal and user registration
-- [ ] add two fields to user model: role and is_active (default to false for registration)
-- [ ] add user management dashboard (table and edit modal)
-- [ ] add user type and display constraints (FE)
+- [ ] fix python errors in routers
+- [ ] decompose bigger components (e.g. headers)
+- [ ] double-check if protected route is safe ( || conditions)
+- [ ] deploy app + pipeline
+- [ ] change perPage component to something more like select
+- [ ] add authorization to swagger
+- [ ] add linting
+- [ ] add role-base authenthication to router (BE)

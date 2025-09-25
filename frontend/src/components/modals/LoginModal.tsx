@@ -10,6 +10,7 @@ import { useState } from "react";
 import { BookIcon } from "../icons/BookIcon";
 import { useNavigate, Link } from "react-router";
 import { BaseModal } from "./BaseModal";
+import { useNotification } from "@/hooks/useNotification";
 
 type LoginModalProps = {
   open: boolean;
@@ -20,6 +21,7 @@ export function LoginModal({ open }: LoginModalProps) {
   const navigate = useNavigate();
   const { mutateAsync: login } = useLogin();
   const [error, setError] = useState<string | null>(null);
+  const { showSuccess } = useNotification();
 
   const closeModal = () => {
     navigate("/");
@@ -32,7 +34,8 @@ export function LoginModal({ open }: LoginModalProps) {
     const password = formData.get("password") as string;
 
     await login({ email, password })
-      .then(() => {
+      .then((res) => {
+        showSuccess("Welcome back, " + res.user_name + "!");
         closeModal();
       })
       .catch((error) => {

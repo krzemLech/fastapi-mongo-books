@@ -28,7 +28,10 @@ export function BasicPagination({
     <Pagination>
       <PaginationContent>
         <PaginationItem>
-          <PaginationPrevious disabled={page === 1} />
+          <PaginationPrevious
+            disabled={page === 1}
+            onClick={() => onPageChange(page - 1)}
+          />
         </PaginationItem>
         {pages.map((pageNumber) => {
           const isActive = pageNumber === page;
@@ -62,7 +65,10 @@ export function BasicPagination({
           );
         })}
         <PaginationItem>
-          <PaginationNext disabled={page === totalPages} />
+          <PaginationNext
+            disabled={page === totalPages}
+            onClick={() => onPageChange(page + 1)}
+          />
         </PaginationItem>
       </PaginationContent>
     </Pagination>

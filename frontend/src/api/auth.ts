@@ -25,7 +25,7 @@ export const auth = {
   },
 
   register: async ({ email, password, age, name }: RegisterParams) => {
-    return API.post("/api/v1/users/create", {
+    return API.post("/api/v1/auth/register", {
       body: JSON.stringify({ email, password, age, name }),
     });
   },

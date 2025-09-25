@@ -6,6 +6,8 @@ class User(Base):
     age: int
     email: str
     password: str
+    active: bool = False
+    role: str = "user"
 
     class Settings:
         name = "users"

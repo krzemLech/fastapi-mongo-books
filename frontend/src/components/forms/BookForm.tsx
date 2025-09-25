@@ -1,6 +1,6 @@
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import type { Book } from "@/api/books";
+import type { Book } from "@/types";
 
 type BookFormProps = {
   btnText: string;

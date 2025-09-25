@@ -2,17 +2,24 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
-import { BookOpenIcon } from "lucide-react";
+import { BookOpenIcon, UserPen, BookPlus } from "lucide-react";
 import { ModeToggle } from "./ModeToggle";
 import { modals } from "@/config";
 import { useLogin, useUser } from "@/hooks";
 import { Link } from "react-router";
 import { AddButton } from "./buttons/AddButton";
+import { useNavigate } from "react-router";
 
 export default function Header1() {
   const [isScrolled, setIsScrolled] = useState(false);
   const { user } = useUser();
   const { logout } = useLogin();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -67,22 +74,36 @@ export default function Header1() {
           <div className="hidden items-center space-x-4 lg:flex">
             <ModeToggle />
             {user ? (
-              <button
-                className="text-foreground font-medium transition-colors duration-200 hover:text-rose-500 cursor-pointer"
-                onClick={() => logout()}
-              >
-                Logout {user.name}
-              </button>
+              <>
+                <button
+                  className="text-foreground font-medium transition-colors duration-200 hover:text-rose-500 cursor-pointer"
+                  onClick={handleLogout}
+                >
+                  Logout {user.name}
+                </button>
+                <AddButton
+                  as="link"
+                  url={`/?modals=${modals.addBook}`}
+                  content={
+                    <BookPlus className="h-4 w-4 stroke-2 stroke-white" />
+                  }
+                />
+              </>
             ) : (
               <Link
-                className="text-foreground font-medium transition-colors duration-200 hover:text-rose-500 cursor-pointer"
+                className="text-foreground font-medium transition-colors duration-200 hover:text-rose-500 cursor-pointer border px-4 py-1 rounded-md border-gray-600"
                 to={`/?modal=${modals.login}`}
               >
                 Sign In
               </Link>
             )}
-            <AddButton user={!!user} variant="book" />
-            {user.role === "admin" && <AddButton user={true} variant="user" />}
+            {user?.role === "admin" && (
+              <AddButton
+                as="link"
+                url={`/users`}
+                content={<UserPen className="h-4 w-4 stroke-2 stroke-white" />}
+              />
+            )}
           </div>
         </div>
       </div>
