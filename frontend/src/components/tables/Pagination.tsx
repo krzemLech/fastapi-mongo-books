@@ -33,7 +33,7 @@ export function BasicPagination({
             onClick={() => onPageChange(page - 1)}
           />
         </PaginationItem>
-        {pages.map((pageNumber) => {
+        {pages.map(pageNumber => {
           const isActive = pageNumber === page;
           const minShow = Math.max(1, page - 2);
           const maxShow = Math.min(totalPages, page + 2);

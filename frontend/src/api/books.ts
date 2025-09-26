@@ -1,9 +1,16 @@
 import API from "./client";
-import type { Book, PaginationParams } from "@/types";
+import type { PaginationParams } from "@/types";
 
 type BookFilters = {
   author?: string;
   title?: string;
+};
+
+type BookPayload = {
+  title: string;
+  author: string;
+  description: string;
+  pages: number;
 };
 
 export const bookApi = {
@@ -16,10 +23,10 @@ export const bookApi = {
   getBook: async (id: string) => {
     return API.get(`/api/v1/books/${id}`, {});
   },
-  addBook: async (book: Book) => {
+  addBook: async (book: BookPayload) => {
     return API.post("/api/v1/books/", { body: JSON.stringify(book) });
   },
-  updateBook: async (id: string, book: Book) => {
+  updateBook: async (id: string, book: BookPayload) => {
     return API.put(`/api/v1/books/${id}`, { body: JSON.stringify(book) });
   },
   deleteBook: async (id: string) => {

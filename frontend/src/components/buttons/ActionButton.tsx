@@ -53,7 +53,6 @@ export function ActionButton({ id, title, adding }: ActionButtonProps) {
         </DropdownMenuItem>
         {adding === "book" && !!user && (
           <DropdownMenuItem asChild>
-            {/* TODO: add conditional rendering for logged in user */}
             <Link to={`?modal=${modals.rating}&id=${id}&title=${title || ""}`}>
               <StarIcon className="text-yellow-500" />
               Rate

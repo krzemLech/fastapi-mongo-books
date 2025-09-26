@@ -34,11 +34,11 @@ export function LoginModal({ open }: LoginModalProps) {
     const password = formData.get("password") as string;
 
     await login({ email, password })
-      .then((res) => {
+      .then(res => {
         showSuccess("Welcome back, " + res.user_name + "!");
         closeModal();
       })
-      .catch((error) => {
+      .catch(error => {
         console.warn("error:", error);
         setError(error.message);
       });

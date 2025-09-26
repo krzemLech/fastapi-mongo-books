@@ -15,7 +15,7 @@ export const PageSizeSelect = ({
       variant="outline"
       className={className}
       value={String(value)}
-      onValueChange={(val) => onChange(val ? Number(val) : value)}
+      onValueChange={val => onChange(val ? Number(val) : value)}
       size="sm"
     >
       <ToggleGroupItem value="5">5</ToggleGroupItem>

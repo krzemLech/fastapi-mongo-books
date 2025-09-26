@@ -74,13 +74,15 @@
 - [x] add users filtering
 - [x] add notifications
 
+26 Sep
+- [x] fix python errors in routers
+- [x] decompose bigger components (e.g. headers)
+- [x] double-check if protected route is safe ( || conditions)
+- [ ] add linting
+
 Queue
 
-- [ ] fix python errors in routers
-- [ ] decompose bigger components (e.g. headers)
-- [ ] double-check if protected route is safe ( || conditions)
 - [ ] deploy app + pipeline
 - [ ] change perPage component to something more like select
 - [ ] add authorization to swagger
-- [ ] add linting
 - [ ] add role-base authenthication to router (BE)

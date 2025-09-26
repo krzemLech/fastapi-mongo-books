@@ -10,7 +10,7 @@ export const NotificationContainer = () => {
 
   return (
     <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 space-y-2">
-      {notifications.map((notification) => (
+      {notifications.map(notification => (
         <AlertBox
           key={notification.id}
           notification={notification}

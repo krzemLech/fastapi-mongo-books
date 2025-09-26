@@ -39,7 +39,7 @@ export const RatingModal = ({ isOpen }: RatingModalProps) => {
         setHoveredStar(0);
         navigate("/");
       })
-      .catch((error) => {
+      .catch(error => {
         console.error("Error submitting rating:", error);
       });
   };

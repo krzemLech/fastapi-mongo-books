@@ -9,6 +9,6 @@ export const useGetUsers = (filters: UserFilters) => {
   return useQuery({
     queryKey: [queryKeys.users, debouncedFilters.name, debouncedFilters.email],
     queryFn: () => usersApi.getUsers(debouncedFilters),
-    staleTime: 0, // 6 minutes
+    staleTime: 1000 * 60 * 6, // 6 minutes
   });
 };

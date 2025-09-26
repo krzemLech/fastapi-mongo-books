@@ -18,7 +18,7 @@ export const auth = {
     return API.post("/api/v1/auth/login", {
       body,
       headers: {},
-    }).then((res) => {
+    }).then(res => {
       setToken(res.token);
       return res;
     });
@@ -31,14 +31,14 @@ export const auth = {
   },
 
   logout: async () => {
-    return API.post("/api/v1/auth/logout", {}).then((res) => {
+    return API.post("/api/v1/auth/logout", {}).then(res => {
       deleteToken();
       return res;
     });
   },
 
   getUser: async () => {
-    return API.get("/api/v1/auth/me", {}).then((res) => {
+    return API.get("/api/v1/auth/me", {}).then(res => {
       return res;
     });
   },

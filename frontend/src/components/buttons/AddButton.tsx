@@ -30,14 +30,14 @@ export const AddButton = (props: AddButtonProps) => {
     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
       {as === "link" ? (
         <Link className={classes[as]} to={(props as LinkProps).url}>
-          {Array.isArray(content) ? content.map((item) => item) : content}
+          {Array.isArray(content) ? content.map(item => item) : content}
         </Link>
       ) : (
         <button
           className={classes[as]}
           onClick={(props as ButtonProps).onClick}
         >
-          {Array.isArray(content) ? content.map((item) => item) : content}
+          {Array.isArray(content) ? content.map(item => item) : content}
         </button>
       )}
     </motion.div>

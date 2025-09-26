@@ -40,14 +40,14 @@ export const UserForm = ({ id, onClose }: UserFormProps) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setUserData((prev) => ({
+    setUserData(prev => ({
       ...prev,
       [name]: value,
     }));
   };
 
   const handleCheckedChange = (name: string, checked: boolean) => {
-    setUserData((prev) => ({
+    setUserData(prev => ({
       ...prev,
       [name]: checked,
     }));
@@ -118,14 +118,14 @@ export const UserForm = ({ id, onClose }: UserFormProps) => {
           label="is Admin"
           name="isAdmin"
           checked={userData.isAdmin}
-          onCheckedChange={(checked) => handleCheckedChange("isAdmin", checked)}
+          onCheckedChange={checked => handleCheckedChange("isAdmin", checked)}
         />
         <CheckboxColor
           id="user-active"
           label="Active"
           name="isActive"
           checked={userData.active}
-          onCheckedChange={(checked) => {
+          onCheckedChange={checked => {
             console.log("checked:", checked);
             handleCheckedChange("active", checked);
           }}

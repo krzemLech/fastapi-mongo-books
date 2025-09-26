@@ -28,7 +28,7 @@ export const RegisterForm = ({ onClose }: UserFormProps) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setRegisterData((prev) => ({
+    setRegisterData(prev => ({
       ...prev,
       [name]: value,
     }));

@@ -108,14 +108,14 @@ export const BooksTable = () => {
             total={total}
             page={page}
             size={size}
-            onPageChange={(newPage) => {
-              setPagination((prev) => ({ ...prev, page: newPage }));
+            onPageChange={newPage => {
+              setPagination(prev => ({ ...prev, page: newPage }));
             }}
           />
           <PageSizeSelect
             value={size}
-            onChange={(newSize) => {
-              setPagination((prev) => ({ ...prev, perPage: newSize }));
+            onChange={newSize => {
+              setPagination(prev => ({ ...prev, perPage: newSize }));
             }}
           />
         </div>

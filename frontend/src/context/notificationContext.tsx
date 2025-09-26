@@ -1,5 +1,5 @@
-import { createContext, useContext, useState } from "react";
-import type { ReactNode } from "react";
+import { createContext, useContext, useState, type ReactNode } from "react";
+import { NOTIFICATION_DISPLAY_TIME } from "@/config";
 
 export type NotificationType = "success" | "error" | "warning";
 
@@ -20,6 +20,7 @@ const NotificationContext = createContext<NotificationContextType | undefined>(
   undefined
 );
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useNotificationContext = () => {
   const context = useContext(NotificationContext);
   if (context === undefined) {
@@ -43,17 +44,17 @@ export const NotificationProvider = ({
     const id = Date.now().toString() + Math.random().toString(36).substr(2, 9);
     const notification: Notification = { id, type, message };
 
-    setNotifications((prev) => [...prev, notification]);
+    setNotifications(prev => [...prev, notification]);
 
-    // Auto-remove notification after 5 seconds
+    // Auto-remove notification
     setTimeout(() => {
       removeNotification(id);
-    }, 5000);
+    }, NOTIFICATION_DISPLAY_TIME);
   };
 
   const removeNotification = (id: string) => {
-    setNotifications((prev) =>
-      prev.filter((notification) => notification.id !== id)
+    setNotifications(prev =>
+      prev.filter(notification => notification.id !== id)
     );
   };
 

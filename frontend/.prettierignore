@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Build outputs
+dist/
+build/
+
+# Generated files
+*.min.js
+*.min.css
+
+# Configuration files that should maintain specific formatting
+.prettierrc*
+eslint.config.js
+
+# IDE files
+.vscode/
+.idea/
+
+# Environment files
+*.env
+*.env.local
+*.env.development
+*.env.test
+*.env.production
+
+# Logs
+*.log
+logs/
+
+# Coverage reports
+coverage/
+
+# Temporary files
+*.tmp
+*.temp

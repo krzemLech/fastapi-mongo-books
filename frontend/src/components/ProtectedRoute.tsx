@@ -12,7 +12,7 @@ export const ProtectedRoute = ({
 }: ProtectedRouteProps) => {
   const { user, isLoading, noToken } = useUser();
 
-  if ((!user && !isLoading) || noToken) {
+  if ((!user && !isLoading) || (noToken && !isLoading)) {
     return <Navigate to="/404" replace />;
   }
 

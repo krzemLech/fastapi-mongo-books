@@ -26,9 +26,9 @@ export const SearchBar = ({
     const { name, value } = e.target;
     console.log(name, value);
     if (collection === "books") {
-      setFilters((prev) => ({ ...prev, [name as keyof BookFilters]: value }));
+      setFilters(prev => ({ ...prev, [name as keyof BookFilters]: value }));
     } else {
-      setFilters((prev) => ({ ...prev, [name as keyof UserFilters]: value }));
+      setFilters(prev => ({ ...prev, [name as keyof UserFilters]: value }));
     }
   };
 
@@ -37,7 +37,7 @@ export const SearchBar = ({
       <div>
         <Input
           name={collection === "books" ? "author" : "name"}
-          icon={(props) => <CircleUserRound {...props} />}
+          icon={props => <CircleUserRound {...props} />}
           placeholder={
             collection === "books" ? "Filter by author" : "Filter by name"
           }
@@ -48,7 +48,7 @@ export const SearchBar = ({
       <div>
         <Input
           name={collection === "books" ? "title" : "email"}
-          icon={(props) =>
+          icon={props =>
             collection === "books" ? (
               <BookType {...props} />
             ) : (

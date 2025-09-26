@@ -31,7 +31,7 @@ export function AddBookModal({ open }: AddBookModalProps) {
         navigate("/");
         closeModal();
       })
-      .catch((error) => {
+      .catch(error => {
         setError(error.message);
       });
   };

@@ -8,10 +8,9 @@ export const useAddRating = () => {
   return useMutation<void, Error, RatingPayload>({
     mutationFn: ratingApi.addRating,
     onSuccess: () => {
-      // Invalidate queries or perform other side effects
       queryClient.invalidateQueries({ queryKey: [queryKeys.books] });
     },
-    onError: (error) => {
+    onError: error => {
       console.error("Error adding rating:", error);
     },
   });

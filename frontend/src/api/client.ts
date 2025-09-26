@@ -18,26 +18,21 @@ const apiClient = (url: string, options: RequestInit) => {
   const headers = (options.headers || {}) as Record<string, string>;
   if (token) headers["Authorization"] = `Bearer ${token}`;
   if (options.body) headers["Content-Type"] = "application/json";
-  return fetch(url, { ...options, headers }).then(async (res) => {
+  return fetch(url, { ...options, headers }).then(async res => {
     const resJson = await res.json();
     console.log("resJson:", resJson);
     if (!res.ok) {
       // TODO: handle errors better - detail can be a string or an array of errors
       if (resJson.detail) {
         throw new Error(
-          // resJson.detail.map((error: { msg: string }) => error.msg).join(", ")
           Array.isArray(resJson.detail)
             ? resJson.detail
                 .map(
                   (error: { msg: string; loc: string[] }) =>
-                    `${error.loc[error.loc.length - 1]}: ${error.msg}}`
+                    `${error.loc[error.loc.length - 1]}: ${error.msg}`
                 )
                 .join(", ")
             : resJson.detail
-        );
-        throw new Error(
-          // resJson.detail.map((error: { msg: string }) => error.msg).join(", ")
-          resJson.detail
         );
       }
       throw new Error(res.statusText);
