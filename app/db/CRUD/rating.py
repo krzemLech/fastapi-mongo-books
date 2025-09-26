@@ -9,7 +9,7 @@ class RatingCRUD:
         """Get a rating by ID"""
         return await Rating.find_one(Rating.id == PydanticObjectId(rating_id))
 
-    async def get_rating_avg(self, book_id: PydanticObjectId) -> float:
+    async def get_rating_avg(self, book_id: str) -> float | None:
         """Get the average rating for a book"""
         return await Rating.find(Rating.book_id == PydanticObjectId(book_id)).avg(
             Rating.rating
@@ -19,9 +19,9 @@ class RatingCRUD:
         """Create a new rating"""
         return await Rating(**rating).save()
 
-    async def delete_rating(self, rating_id: PydanticObjectId) -> bool:
+    async def delete_rating(self, rating_id: str) -> bool:
         """Delete a rating"""
-        rating = await Rating.find_one(Rating.id == rating_id)
+        rating = await Rating.find_one(Rating.id == PydanticObjectId(rating_id))
         if rating:
             await rating.delete()
             return True

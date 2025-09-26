@@ -8,12 +8,6 @@ class RatingCreate(BaseModel):
     rating: int
 
 
-# class RatingUpdate(BaseModel):
-#     book_id: PydanticObjectId | None = None
-#     user_id: PydanticObjectId | None = None
-#     rating: int | None = None
-
-
 class RatingResponse(BaseModel):
     book_id: PydanticObjectId
     rating_avg: float

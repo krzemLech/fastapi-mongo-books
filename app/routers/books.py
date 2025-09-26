@@ -29,9 +29,11 @@ async def get_books(
  
     checked_page = page if page <= max_page else max_page
 
+    # set up pagination
     skip = (checked_page - 1) * per_page
     limit = per_page
 
+    # aggregation pipeline needed for related ratings
     books = await book_service.aggregate(generate_pipeline(pipeline=pipeline_books_with_ratings, pagination={"skip": skip, "limit": limit}, filters=filters))
 
     return { "total": book_count, "page": page, "size": per_page, "items": books }
@@ -60,7 +62,7 @@ async def update_book(book_id: str, book: BookUpdate) -> Book:
 
 
 @router.delete("/{book_id}")
-async def delete_book(book_id: str):
+async def delete_book(book_id: str) -> dict[Literal[]]:
     deleted = await book_service.delete(book_id)
     if not deleted:
         raise HTTPException(status_code=404, detail="Book not found")

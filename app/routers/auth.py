@@ -54,7 +54,6 @@ async def login(credentials: Login) -> dict[Literal['token', 'user_name'], str]:
     session = await session_service.create_session(token=token, session=session_user)
     if not session:
         raise HTTPException(status_code=500, detail="Failed to create session")
-    # TODO: set the session cookie
     return {"token": token, "user_name": user_from_db.name}
 
 
@@ -63,7 +62,6 @@ async def logout(
     user: SessionUser = Depends(AuthUtils.session_depenedency),
 ) -> dict[Literal['message'], Literal['Logged out']]:
     await session_service.delete_session(user.id)
-    # TODO: delete the session cookie
     return {"message": "Logged out"}
 
 

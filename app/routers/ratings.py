@@ -10,7 +10,7 @@ rating_service = RatingCRUD()
 
 
 @router.get("/{book_id}")
-async def get_rating(book_id: str) -> RatingResponse:
+async def get_rating(book_id: str) -> dict[str, float | str]:
     rating = await rating_service.get_rating_avg(book_id)
     if not rating:
         raise HTTPException(status_code=404, detail="Rating not found")
