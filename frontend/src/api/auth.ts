@@ -1,4 +1,4 @@
-import API, { deleteToken, setToken } from "./client";
+import API, { deleteToken, setToken, getToken } from "./client";
 
 type LoginParams = {
   email: string;
