@@ -24,7 +24,6 @@ export const SearchBar = ({
 }: SearchBarProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log(name, value);
     if (collection === "books") {
       setFilters(prev => ({ ...prev, [name as keyof BookFilters]: value }));
     } else {

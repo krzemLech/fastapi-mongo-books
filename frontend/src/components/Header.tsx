@@ -83,7 +83,7 @@ export default function Header1() {
                 </button>
                 <AddButton
                   as="link"
-                  url={`/?modals=${modals.addBook}`}
+                  url={`/?modal=${modals.addBook}`}
                   content={
                     <BookPlus className="h-4 w-4 stroke-2 stroke-white" />
                   }

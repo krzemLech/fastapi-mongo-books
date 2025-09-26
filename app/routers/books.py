@@ -15,7 +15,7 @@ book_service = CRUDService[Book](Book)
 @router.get("/", response_model=BooksListResponse)
 async def get_books(
     params: Annotated[dict[str, str], Depends(book_parameters)],
-) -> dict[str, int | list[Book]]:
+) -> dict[str, int | list[dict]]:
     page = int(params["page"])
     per_page = int(params["per_page"])
     filters = {"author": params["author"], "title": params["title"]}
@@ -62,7 +62,7 @@ async def update_book(book_id: str, book: BookUpdate) -> Book:
 
 
 @router.delete("/{book_id}")
-async def delete_book(book_id: str) -> dict[Literal[]]:
+async def delete_book(book_id: str) -> dict[str, str]:
     deleted = await book_service.delete(book_id)
     if not deleted:
         raise HTTPException(status_code=404, detail="Book not found")

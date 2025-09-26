@@ -28,6 +28,8 @@ function AppContent() {
   const openUpdateBookModal = modal === modals.editBook;
   const openRatingModal = modal === modals.rating;
 
+  console.log(openAddBookModal);
+
   return (
     <div className="App h-screen">
       <Header />
