@@ -126,7 +126,6 @@ export const UserForm = ({ id, onClose }: UserFormProps) => {
           name="isActive"
           checked={userData.active}
           onCheckedChange={checked => {
-            console.log("checked:", checked);
             handleCheckedChange("active", checked);
           }}
         />

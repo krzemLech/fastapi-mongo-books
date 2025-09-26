@@ -20,7 +20,6 @@ const apiClient = (url: string, options: RequestInit) => {
   if (options.body) headers["Content-Type"] = "application/json";
   return fetch(url, { ...options, headers }).then(async res => {
     const resJson = await res.json();
-    console.log("resJson:", resJson);
     if (!res.ok) {
       // TODO: handle errors better - detail can be a string or an array of errors
       if (resJson.detail) {
